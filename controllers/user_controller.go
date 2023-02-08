@@ -23,12 +23,12 @@ func CreateUser(c *fiber.Ctx) error {
     var user models.User
     defer cancel()
 
-    //validate the request body
+    
     if err := c.BodyParser(&user); err != nil {
         return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": err.Error()}})
     }
 
-    //use the validator library to validate required fields
+   
     if validationErr := validate.Struct(&user); validationErr != nil {
         return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": validationErr.Error()}})
     }
